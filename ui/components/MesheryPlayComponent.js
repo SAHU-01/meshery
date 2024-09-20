@@ -8,7 +8,7 @@ import {
   MenuItem,
   TextField,
   Grid,
-  Typography,
+  // Typography,
 } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import MesheryAdapterPlayComponent from './MesheryAdapterPlayComponent';
 import { bindActionCreators } from 'redux';
 import { setAdapter } from '../lib/store';
+import { Typography } from '@layer5/sistent';
 
 const styles = (theme) => ({
   icon: {

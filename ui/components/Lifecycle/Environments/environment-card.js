@@ -37,7 +37,10 @@ export const formattoLongDate = (date) => {
 export const TransferButton = ({ title, count, onAssign, disabled }) => {
   return (
     <UsesSistent>
-      <PopupButton disabled={disabled} onClick={onAssign} sx={{
+      <PopupButton
+        disabled={disabled}
+        onClick={onAssign}
+        sx={{
           color: '#3C494F',
           backgroundColor: '#ffffff',
           margin: '0px 0px 10px',
@@ -46,11 +49,14 @@ export const TransferButton = ({ title, count, onAssign, disabled }) => {
             backgroundColor: '#ffffff',
             boxShadow: 'none',
           },
-        }}>
+        }}
+      >
         <Grid>
           <TabCount>{count}</TabCount>
           <TabTitle>{title}</TabTitle>
-          <SyncAltIcon sx={{ position: 'absolute', top: '10px', right: '10px', color:'#607d8b' }} />
+          <SyncAltIcon
+            sx={{ position: 'absolute', top: '10px', right: '10px', color: '#607d8b' }}
+          />
         </Grid>
       </PopupButton>
     </UsesSistent>
@@ -104,7 +110,7 @@ const EnvironmentCard = ({
           sx={{
             minHeight: '320px',
             height: '320px',
-            borderRadius:2
+            borderRadius: 2,
           }}
         >
           <Grid sx={{ display: 'flex', flexDirection: 'row', pb: 1 }}>
@@ -121,12 +127,16 @@ const EnvironmentCard = ({
           >
             <Grid xs={12} sm={9} md={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
               {environmentDetails.description ? (
-                  <DescriptionLabel
-                    onClick={(e) => e.stopPropagation()}
-                    sx={{ marginBottom: { xs: 2, sm: 0 }, paddingRight: { sm: 2, lg: 0 }, marginTop:'0px' }}
-                  >
-                    {environmentDetails.description}
-                  </DescriptionLabel>
+                <DescriptionLabel
+                  onClick={(e) => e.stopPropagation()}
+                  sx={{
+                    marginBottom: { xs: 2, sm: 0 },
+                    paddingRight: { sm: 2, lg: 0 },
+                    marginTop: '0px',
+                  }}
+                >
+                  {environmentDetails.description}
+                </DescriptionLabel>
               ) : (
                 <EmptyDescription
                   onClick={(e) => e.stopPropagation()}

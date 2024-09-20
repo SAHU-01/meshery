@@ -461,7 +461,7 @@ const Environments = ({ organization }) => {
                   padding: '8px',
                   borderRadius: 2,
                   marginRight: '2rem',
-                   backgroundColor: '#607d8b',
+                  backgroundColor: '#607d8b',
                 }}
                 disabled={!CAN(keys.CREATE_ENVIRONMENT.action, keys.CREATE_ENVIRONMENT.subject)}
                 data-cy="btnResetDatabase"
@@ -478,15 +478,15 @@ const Environments = ({ organization }) => {
               </Button>
             </CreateButtonWrapper>
             <UsesSistent>
-            <SearchBar
-              onSearch={(value) => {
-                setSearch(value);
-              }}
-              placeholder="Search Environments..."
-              expanded={isSearchExpanded}
-              setExpanded={setIsSearchExpanded}
-            />
-             </UsesSistent>
+              <SearchBar
+                onSearch={(value) => {
+                  setSearch(value);
+                }}
+                placeholder="Search Environments..."
+                expanded={isSearchExpanded}
+                setExpanded={setIsSearchExpanded}
+              />
+            </UsesSistent>
           </ToolWrapper>
           {selectedEnvironments.length > 0 && (
             <BulkActionWrapper>
