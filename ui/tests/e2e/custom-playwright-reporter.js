@@ -58,10 +58,10 @@ class MyReporter {
       result.retry
     } ${
       status === 'unexpected' && result.error !== undefined
-        ? '\n' +
+        ? ('\n' +
             `File Location: ${result.error.location?.file ?? 'Not Found'}` +
             '\n' +
-            result.error?.snippet ?? 'No snippet' + '\n' + result.error?.message
+            result.error?.snippet ?? 'No snippet' + '\n' + result.error?.message)
         : ''
     }\n`;
 
