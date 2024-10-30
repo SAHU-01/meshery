@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateProgress } from '../../lib/store';
 import { bindActionCreators } from 'redux';
-// import { Button, Grid, Paper, Typography } from '@material-ui/core';
-// import { useTheme, withStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { withRouter } from 'next/router';
 import MesheryMetrics from '../MesheryMetrics';
