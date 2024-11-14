@@ -15,6 +15,7 @@
 package registry
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
@@ -92,18 +93,16 @@ mesheryctl registry generate --directory <DIRECTORY_PATH>
 			// Collect list of corresponding relationship by name from spreadsheet
 			relationshipSpredsheetGID = GetSheetIDFromTitle(resp, "Relationships")
 		} else {
-			modelCSVFilePath, componentCSVFilePath, err = utils.GetCsv(csvDirectory)
+			modelCSVFilePath, componentCSVFilePath, relationshipCSVFilePath, err = utils.GetCsv(csvDirectory)
 			if err != nil {
-				utils.LogError.Error(err)
-				return nil
+				return fmt.Errorf("error reading the directory: %v", err)
+			}
+			if modelCSVFilePath == "" || componentCSVFilePath == "" || relationshipCSVFilePath == "" {
+				return fmt.Errorf("both ModelCSV and ComponentCSV files must be present in the directory")
 			}
 		}
 
-		err = utils.SetLogger(true)
-		if err != nil {
-			return err
-		}
-		err = utils.InvokeGenerationFromSheet(&wg, registryLocation, sheetGID, componentSpredsheetGID, spreadsheeetID, modelName, modelCSVFilePath, componentCSVFilePath, spreadsheeetCred)
+		err = utils.InvokeGenerationFromSheet(&wg, registryLocation, sheetGID, componentSpredsheetGID, spreadsheeetID, modelName, modelCSVFilePath, componentCSVFilePath, spreadsheeetCred, relationshipCSVFilePath, relationshipSpredsheetGID)
 		if err != nil {
 			// meshkit
 			utils.LogError.Error(err)
@@ -111,24 +110,4 @@ mesheryctl registry generate --directory <DIRECTORY_PATH>
 		}
 		return err
 	},
-}
-
-func init() {
-	generateCmd.PersistentFlags().StringVar(&spreadsheeetID, "spreadsheet-id", "", "spreadsheet ID for the integration spreadsheet")
-	generateCmd.PersistentFlags().StringVar(&spreadsheeetCred, "spreadsheet-cred", "", "base64 encoded credential to download the spreadsheet")
-
-	generateCmd.MarkFlagsRequiredTogether("spreadsheet-id", "spreadsheet-cred")
-
-	generateCmd.PersistentFlags().StringVar(&pathToRegistrantConnDefinition, "registrant-def", "", "path pointing to the registrant connection definition")
-	generateCmd.PersistentFlags().StringVar(&pathToRegistrantCredDefinition, "registrant-cred", "", "path pointing to the registrant credential definition")
-
-	generateCmd.MarkFlagsRequiredTogether("registrant-def", "registrant-cred")
-
-	generateCmd.MarkFlagsMutuallyExclusive("spreadsheet-id", "registrant-def")
-	generateCmd.MarkFlagsMutuallyExclusive("spreadsheet-cred", "registrant-cred")
-	generateCmd.PersistentFlags().StringVarP(&modelName, "model", "m", "", "specific model name to be generated")
-	generateCmd.PersistentFlags().StringVarP(&outputLocation, "output", "o", "../server/meshmodel", "location to output generated models, defaults to ../server/meshmodels")
-
-	generateCmd.PersistentFlags().StringVarP(&csvDirectory, "directory", "d", "", "Directory containing the Model and Component CSV files")
-
 }
